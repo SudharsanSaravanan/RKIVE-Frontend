@@ -42,12 +42,28 @@ import {
 } from "lucide-react";
 
 type Candidate = {
-  id: number;
+  // existing fields used across UI
+  id: number; // numeric id for rendering/sorting
   name: string;
-  email: string;
-  experience: string;
+  email: string; // not in CSV -> set to "nil"
+  experience: string; // not in CSV -> set to "nil"
   status?: string;
-  score: number;
+  score: number; // not in CSV -> default to 0
+
+  // added fields from candidates.csv
+  candidateId: string; // e.g., C001
+  dateOfBirth: string; // e.g., 06-01-2003
+  gender: string;
+  category: string;
+  tenthScore: string | number;
+  twelfthScore: string | number;
+  undergraduateScore: string | number;
+  postgraduateScore?: string | number | null;
+  skills: string[];
+  certifications: string[];
+  stream: string;
+  ugCourse: string;
+  pgCourse?: string | null;
 };
 
 type Job = {
@@ -205,54 +221,312 @@ const AdminDashboard: React.FC = () => {
   const joblists: Job[] = [
     {
       id: 1,
-      title: "AI Research Intern",
-      company: "Ministry of Electronics & IT",
-      location: "New Delhi",
+      title: "Senior Software Engineer",
+      company: "Innovate Solutions Inc.",
+      location: "Remote",
       description:
-        "Join our AI research team to work on cutting-edge machine learning projects that will shape the future of government digital services.",
+        "Innovate Solutions Inc. is seeking a highly skilled and experienced Senior Software Engineer to join our dynamic team. You will be responsible for designing, developing, and maintaining complex software systems.",
       requirements:
-        "Bachelor's in Computer Science, Python programming, Machine Learning fundamentals",
-      salary: "₹25,000/month",
+        [
+          "Responsibilities: Lead the design and implementation of new features and services; Collaborate with product managers and other engineers to define requirements and specifications; Write clean, maintainable, and efficient code; Perform code reviews and mentor junior engineers; Troubleshoot and debug production issues; Contribute to the improvement of our development processes and tools.",
+          "Qualifications: Bachelor's or Master's degree in Computer Science or a related field; 8+ years of experience in software development; Proficiency in Python, Java, or C++; Experience with cloud platforms (AWS, Azure, GCP); Strong understanding of data structures and algorithms; Excellent communication and problem-solving skills.",
+          "Preferred Qualifications: Experience with microservices architecture; Familiarity with Agile development methodologies; Contributions to open-source projects; Certifications in cloud computing (e.g., AWS Certified Solutions Architect); Knowledge of additional languages like Spanish or French."
+        ].join(" \n\n"),
+      salary: "nil",
       candidates: [
+        // C001 - Shrikant Chandra
         {
           id: 1,
-          name: "Rahul Sharma",
-          email: "rahul@example.com",
-          experience: "2 years",
-          status: "Applied",
-          score: 85,
+          candidateId: "C001",
+          name: "Shrikant Chandra",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "06-01-2003",
+          gender: "Female",
+          category: "ST",
+          tenthScore: "44.37",
+          twelfthScore: "nil",
+          undergraduateScore: "nil",
+          postgraduateScore: "nil",
+          skills: ["Open Source", "Leadership", "Teamwork", "Spanish"],
+          certifications: [
+            "Certificate in Public Health",
+            "Nursing Assistant Certificate",
+          ],
+          stream: "nil",
+          ugCourse: "nil",
+          pgCourse: "nil",
         },
+        // C038 - Drupad Ketkar
         {
           id: 2,
-          name: "Priya Singh",
-          email: "priya@example.com",
-          experience: "1 year",
-          status: "Reviewed",
-          score: 92,
+          candidateId: "C038",
+          name: "Drupad Ketkar",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "07-05-2004",
+          gender: "Male",
+          category: "GEN/UR",
+          tenthScore: "52.81",
+          twelfthScore: "nil",
+          undergraduateScore: "nil",
+          postgraduateScore: "nil",
+          skills: [
+            "Azure",
+            "Java",
+            "Mentoring",
+            "Open Source",
+            "Leadership",
+          ],
+          certifications: [],
+          stream: "nil",
+          ugCourse: "nil",
+          pgCourse: "nil",
         },
+        // C111 - Kedar Chopra
         {
           id: 3,
-          name: "Arjun Patel",
-          email: "arjun@example.com",
-          experience: "3 years",
-          status: "Applied",
-          score: 78,
+          candidateId: "C111",
+          name: "Kedar Chopra",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "26-04-2002",
+          gender: "Female",
+          category: "SC",
+          tenthScore: "67.99",
+          twelfthScore: "62.83",
+          undergraduateScore: "nil",
+          postgraduateScore: "nil",
+          skills: [
+            "Python",
+            "Teamwork",
+            "MS Excel",
+            "Critical Thinking",
+            "Debugging",
+            "Java",
+          ],
+          certifications: ["Basic Life Support (BLS)"],
+          stream: "Arts (Commerce)",
+          ugCourse: "nil",
+          pgCourse: "nil",
         },
+        // C022 - Govardhan Keshari
         {
           id: 4,
-          name: "Sneha Kumar",
-          email: "sneha@example.com",
-          experience: "1.5 years",
-          status: "Applied",
-          score: 88,
+          candidateId: "C022",
+          name: "Govardhan Keshari",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "21-05-2003",
+          gender: "Male",
+          category: "GEN/UR",
+          tenthScore: "57.63",
+          twelfthScore: "43.63",
+          undergraduateScore: "nil",
+          postgraduateScore: "nil",
+          skills: [
+            "Spanish",
+            "C++",
+            "Azure",
+            "Data Analysis",
+            "Communication",
+            "Critical Thinking",
+            "Leadership",
+          ],
+          certifications: ["Nursing Assistant Certificate"],
+          stream: "Science (Bio+Math)",
+          ugCourse: "nil",
+          pgCourse: "nil",
         },
+        // C789 - Sanskriti Vyas
         {
           id: 5,
-          name: "Vikash Das",
-          email: "vikash@example.com",
-          experience: "2.5 years",
-          status: "Reviewed",
-          score: 90,
+          candidateId: "C789",
+          name: "Sanskriti Vyas",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "21-06-2003",
+          gender: "Male",
+          category: "SC",
+          tenthScore: "38.84",
+          twelfthScore: "36.2",
+          undergraduateScore: "5.53",
+          postgraduateScore: "6.31",
+          skills: [
+            "GST Practitioner Certificate",
+            "Accounting",
+            "Business Communication",
+            "Excel",
+          ],
+          certifications: ["Diploma in Nutrition & Dietetics"],
+          stream: "Arts (Commerce)",
+          ugCourse: "BFIA",
+          pgCourse: "M.Com",
+        },
+        // C999 - Rampyare Govil
+        {
+          id: 6,
+          candidateId: "C999",
+          name: "Rampyare Govil",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "22-08-2004",
+          gender: "Male",
+          category: "OBC",
+          tenthScore: "88.14",
+          twelfthScore: "51.07",
+          undergraduateScore: "8.36",
+          postgraduateScore: "4.71",
+          skills: [
+            "Tally ERP",
+            "Accounting",
+            "Finance",
+            "GST Practitioner Certificate",
+            "MS Excel",
+            "Excel",
+            "Business Communication",
+          ],
+          certifications: ["Basic Life Support (BLS)"],
+          stream: "Arts (Commerce)",
+          ugCourse: "BBI",
+          pgCourse: "MBA",
+        },
+        // C931 - Lata Dutt
+        {
+          id: 7,
+          candidateId: "C931",
+          name: "Lata Dutt",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "29-02-2004",
+          gender: "Female",
+          category: "ST",
+          tenthScore: "42.78",
+          twelfthScore: "97.59",
+          undergraduateScore: "9.33",
+          postgraduateScore: "6.98",
+          skills: [
+            "Agile",
+            "Data Analysis",
+            "MS Excel",
+            "Python",
+            "Communication",
+          ],
+          certifications: [
+            "Nursing Assistant Certificate",
+            "Excel Advanced",
+            "Medical Lab Technician Certificate",
+          ],
+          stream: "Science (CS+Math)",
+          ugCourse: "BCA",
+          pgCourse: "M.Sc. Computer Science",
+        },
+        // C004 - Khushboo Priyadarshini
+        {
+          id: 8,
+          candidateId: "C004",
+          name: "Khushboo Priyadarshini",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "19-11-2003",
+          gender: "Male",
+          category: "ST",
+          tenthScore: "32.17",
+          twelfthScore: "47.75",
+          undergraduateScore: "5.31",
+          postgraduateScore: "8.11",
+          skills: [
+            "Debugging",
+            "Agile",
+            "Data Analysis",
+            "Communication",
+            "Leadership",
+            "MS Excel",
+            "Python",
+          ],
+          certifications: ["GST Practitioner Certificate"],
+          stream: "Science (CS+Math)",
+          ugCourse: "BCA",
+          pgCourse: "M.Sc. Data Science",
+        },
+        // C054 - Sulekha Dave
+        {
+          id: 9,
+          candidateId: "C054",
+          name: "Sulekha Dave",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "05-02-2003",
+          gender: "Male",
+          category: "ST",
+          tenthScore: "72.94",
+          twelfthScore: "87.45",
+          undergraduateScore: "8.23",
+          postgraduateScore: "6.83",
+          skills: ["Java", "SQL", "Debugging", "Agile"],
+          certifications: [
+            "AWS Certified Solutions Architect",
+            "Tally",
+          ],
+          stream: "Science (CS+Math)",
+          ugCourse: "B.Sc. Data Science",
+          pgCourse: "M.Sc. Computer Science",
+        },
+        // C026 - Awantika Banerjee
+        {
+          id: 10,
+          candidateId: "C026",
+          name: "Awantika Banerjee",
+          email: "nil",
+          experience: "nil",
+          status: "nil",
+          score: 0,
+          dateOfBirth: "04-10-2001",
+          gender: "Male",
+          category: "GEN/UR",
+          tenthScore: "35.24",
+          twelfthScore: "81.94",
+          undergraduateScore: "5.76",
+          postgraduateScore: "7.15",
+          skills: [
+            "Python",
+            "Java",
+            "C++",
+            "AWS",
+            "Azure",
+            "GCP",
+            "Debugging",
+            "Mentoring",
+            "Agile",
+            "Communication",
+            "Data Structures and algorithms",
+            "Microservices",
+          ],
+          certifications: [
+            "AWS Certified Solutions Architect",
+            "Azure",
+          ],
+          stream: "Science (CS+Math)",
+          ugCourse: "B.Tech CSE",
+          pgCourse: "M.Tech CSE",
         },
       ],
     },
@@ -704,11 +978,21 @@ const AdminDashboard: React.FC = () => {
 
       {/* View Candidates Dialog */}
       <Dialog open={viewCandidatesOpen} onOpenChange={setViewCandidatesOpen}>
-        <DialogContent className="max-w-5xl max-h-[90vh] overflow-auto">
+        <DialogContent className="max-w-fit max-h-[90vh] overflow-auto">
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold flex items-center gap-2">
-              <Users className="w-5 h-5 text-blue-600" />
-              Candidates for {selectedJob?.title}
+            <DialogTitle className="text-xl font-semibold flex justify-between items-center gap-2">
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-blue-600" />
+                Candidates for {selectedJob?.title}
+              </div>
+              <div className="flex justify-end pt-6">
+                <Button
+                  onClick={handleSubmitCandidates}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-8"
+                >
+                  Process Applications
+                </Button>
+              </div>
             </DialogTitle>
           </DialogHeader>
 
@@ -719,8 +1003,17 @@ const AdminDashboard: React.FC = () => {
                   <thead>
                     <tr className="border-b border-slate-200">
                       <th className="text-left p-4 font-semibold text-slate-900">Name</th>
-                      <th className="text-left p-4 font-semibold text-slate-900">Email</th>
-                      <th className="text-left p-4 font-semibold text-slate-900">Experience</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">Gender</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">Category</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">10th Score</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">12th Score</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">Undergraduate Score</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">Postgraduate Score</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">Skills</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">Certifications</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">Stream</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">UG Course</th>
+                      <th className="text-left p-4 font-semibold text-slate-900">PG Course</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white rounded-lg">
@@ -734,21 +1027,21 @@ const AdminDashboard: React.FC = () => {
                         }`}
                       >
                         <td className="p-4 font-medium text-slate-900">{candidate.name}</td>
-                        <td className="p-4 text-slate-600">{candidate.email}</td>
-                        <td className="p-4 text-slate-600">{candidate.experience}</td>
+                        <td className="p-4 text-slate-600">{candidate.gender}</td>
+                        <td className="p-4 text-slate-600">{candidate.category}</td>
+                        <td className="p-4 text-slate-600">{candidate.tenthScore}</td>
+                        <td className="p-4 text-slate-600">{candidate.twelfthScore}</td>
+                        <td className="p-4 text-slate-600">{candidate.undergraduateScore}</td>
+                        <td className="p-4 text-slate-600">{candidate.postgraduateScore || 'N/A'}</td>
+                        <td className="p-4 text-slate-600">{candidate.skills.join(", ")}</td>
+                        <td className="p-4 text-slate-600">{candidate.certifications.join(", ") || 'N/A'}</td>
+                        <td className="p-4 text-slate-600">{candidate.stream}</td>
+                        <td className="p-4 text-slate-600">{candidate.ugCourse}</td>
+                        <td className="p-4 text-slate-600">{candidate.pgCourse || 'N/A'}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-              </div>
-              
-              <div className="flex justify-end pt-6 border-t border-slate-200">
-                <Button
-                  onClick={handleSubmitCandidates}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-8"
-                >
-                  Process Applications
-                </Button>
               </div>
             </div>
           )}
